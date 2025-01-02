@@ -21,6 +21,34 @@ app.get('/api/auction-end-time', (req, res) => {
     res.json({ auctionEndTime });
 });
 
+// Endpoint to get players
+app.get('/api/players', (req, res) => {
+    res.json(players);
+});
+
+// Endpoint to submit a bid
+app.post('/api/bid', (req, res) => {
+    if (Date.now() > auctionEndTime) {
+        return res.json({ success: false, message: 'Auction has ended.' });
+    }
+
+    const { playerId, bidderName, bidAmount } = req.body;
+    const player = players.find(p => p.id === parseInt(playerId));
+
+    if (!player) {
+        return res.json({ success: false, message: 'Player not found.' });
+    }
+
+    if (bidAmount <= player.highestBid) {
+        return res.json({ success: false, message: 'Bid must be higher than the current highest bid.' });
+    }
+
+    player.highestBid = bidAmount;
+    player.highestBidder = bidderName;
+
+    res.json({ success: true });
+});
+
 // Endpoint to set the auction time limit (in minutes)
 app.post('/api/set-auction-time', (req, res) => {
     const { minutes } = req.body;
