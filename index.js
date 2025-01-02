@@ -16,6 +16,17 @@ let auctionEndTime = Date.now() + 2 * 60 * 1000; // 2-minute timer
 let auctionTimerPaused = false; // Track if the timer is paused
 let auctionTimerInterval;
 
+// Endpoint to reset all bids
+app.post('/api/reset-bids', (req, res) => {
+    players.forEach(player => {
+        player.highestBid = 0;
+        player.highestBidder = '';
+    });
+
+    res.json({ success: true, message: 'All bids have been reset.' });
+});
+
+
 // Endpoint to get the auction end time
 app.get('/api/auction-end-time', (req, res) => {
     res.json({ auctionEndTime });
