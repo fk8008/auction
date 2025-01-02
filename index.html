@@ -64,13 +64,9 @@
     </form>
 
     <script>
-        const players = [
-            { id: 1, name: 'Player 1', highestBid: 0, highestBidder: '' },
-            { id: 2, name: 'Player 2', highestBid: 0, highestBidder: '' },
-            { id: 3, name: 'Player 3', highestBid: 0, highestBidder: '' }
-        ];
+        const baseUrl = "https://fpl-auction.onrender.com"; // Set the backend URL
 
-        let auctionEndTime = Date.now() + 1 * 60 * 1000; // 30-minute timer
+        let auctionEndTime = Date.now() + 2 * 60 * 1000; // 2-minute timer
 
         // Update countdown timer
         function updateTimer() {
@@ -89,7 +85,10 @@
         updateTimer();
 
         // Load players and update UI
-        function loadPlayers() {
+        async function loadPlayers() {
+            const response = await fetch(`${baseUrl}/api/players`);
+            const players = await response.json();
+
             const playerSelect = document.getElementById('playerSelect');
             const playerTable = document.getElementById('playerTable').getElementsByTagName('tbody')[0];
 
@@ -112,7 +111,7 @@
             });
         }
 
-        // Submit bid
+        // Submit bid to the backend
         async function submitBid(event) {
             event.preventDefault();
 
@@ -120,30 +119,23 @@
             const bidderName = document.getElementById('bidderName').value;
             const bidAmount = parseFloat(document.getElementById('bidAmount').value);
 
-            const player = players.find(p => p.id === parseInt(playerId));
+            // Make sure the bid amount is higher than the current highest bid
+            const response = await fetch(`${baseUrl}/api/bid`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ playerId, bidderName, bidAmount })
+            });
 
-            if (Date.now() > auctionEndTime) {
-                alert('Auction has ended.');
-                return;
+            const result = await response.json();
+            if (result.success) {
+                loadPlayers();  // Reload the players and their bids
+            } else {
+                alert(result.message);
             }
-
-            if (!player) {
-                alert('Player not found.');
-                return;
-            }
-
-            if (bidAmount <= player.highestBid) {
-                alert('Bid must be higher than the current highest bid.');
-                return;
-            }
-
-            player.highestBid = bidAmount;
-            player.highestBidder = bidderName;
-            loadPlayers();  // Reload the players and their bids
         }
 
         document.getElementById('bidForm').addEventListener('submit', submitBid);
-        loadPlayers();  // Initialize the player table
+        loadPlayers();  // Load players when the page is loaded
     </script>
 </body>
 </html>
