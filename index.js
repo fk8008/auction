@@ -1,9 +1,9 @@
 const express = require('express');
-const cors = require('cors');  // To handle CORS for frontend-backend communication
+const cors = require('cors');
 const app = express();
 
 app.use(express.json());
-app.use(cors());  // Enable CORS for frontend requests
+app.use(cors());
 
 let players = [
     { id: 1, name: 'Player 1', highestBid: 0, highestBidder: '' },
@@ -11,7 +11,13 @@ let players = [
     { id: 3, name: 'Player 3', highestBid: 0, highestBidder: '' }
 ];
 
+// Store auction end time on the server (e.g., 2 minutes from server start)
 let auctionEndTime = Date.now() + 2 * 60 * 1000; // 2-minute timer
+
+// Endpoint to get the auction end time
+app.get('/api/auction-end-time', (req, res) => {
+    res.json({ auctionEndTime });
+});
 
 // Endpoint to get players
 app.get('/api/players', (req, res) => {
@@ -41,7 +47,7 @@ app.post('/api/bid', (req, res) => {
     res.json({ success: true });
 });
 
-// Start server
+// Start the server
 app.listen(3000, () => {
     console.log('Auction server running on http://localhost:3000');
 });
