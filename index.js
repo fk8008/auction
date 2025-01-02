@@ -52,7 +52,7 @@ app.post('/api/bid', (req, res) => {
 // Endpoint to set the auction time limit (in minutes)
 app.post('/api/set-auction-time', (req, res) => {
     const { minutes } = req.body;
-    if (minutes < 1 || minutes > 120) {
+    if (isNaN(minutes) || minutes < 1 || minutes > 120) {
         return res.status(400).json({ success: false, message: 'Please set a valid time limit between 1 and 120 minutes.' });
     }
     auctionEndTime = Date.now() + minutes * 60 * 1000; // Set auction end time to the specified duration
