@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .dashboard-controls {
+            margin-bottom: 20px;
+        }
+        .dashboard-controls input, .dashboard-controls button {
+            padding: 10px;
+            font-size: 1em;
+            margin: 5px;
+        }
+        #timer {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        #auctionEndedMessage {
+            display: none;
+            color: red;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Auction Dashboard</h1>
+
+    <!-- Auction Controls -->
+    <div class="dashboard-controls">
+        <label for="auctionTimeLimit">Set Auction Time Limit (minutes):</label>
+        <input type="number" id="auctionTimeLimit" min="1" max="120" value="30">
+        <button id="setAuctionTimeButton">Set Auction Time</button>
+        <button id="restartAuctionButton">Restart Auction</button>
+        <button id="pauseTimerButton">Pause Timer</button>
+        <button id="resumeTimerButton">Resume Timer</button>
+    </div>
+
+    <!-- Timer Display -->
+    <div id="timer">Loading timer...</div>
+
+    <!-- Auction Ended Message -->
+    <div id="auctionEndedMessage">Auction has ended!</div>
+
+    <script>
+        const baseUrl = "https://fpl-auction.onrender.com"; // Update to your backend URL
+        let auctionEndTime = 0;
+        let timerInterval;
+        let isPaused = false;
+
+        // Function to set the auction time limit
+        async function setAuctionTime() {
+            const timeLimit = document.getElementById('auctionTimeLimit').value;
+            if (timeLimit < 1 || timeLimit > 120) {
+                alert('Please set a valid time limit between 1 and 120 minutes.');
+                return;
+            }
+
+            auctionEndTime = Date.now() + timeLimit * 60 * 1000; // Set the end time based on user input
+            await fetch(`${baseUrl}/api/set-auction-time`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ auctionEndTime })
+            });
+
+            clearInterval(timerInterval); // Reset any ongoing timer interval
+            startTimer();
+        }
+
+        // Function to start the auction timer
+        function startTimer() {
+            timerInterval = setInterval(updateTimer, 1000); // Update the timer every second
+        }
+
+        // Function to update the auction timer
+        function updateTimer() {
+            if (isPaused) return;
+
+            const now = Date.now();
+            const timeLeft = Math.max(0, auctionEndTime - now);
+            const minutes = Math.floor(timeLeft / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            if (timeLeft === 0) {
+                clearInterval(timerInterval);
+                showAuctionEndedMessage();
+            }
+        }
+
+        // Function to show the "Auction has ended!" message
+        function showAuctionEndedMessage() {
+            const messageDiv = document.getElementById('auctionEndedMessage');
+            messageDiv.style.display = 'block';
+
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000); // Hide the message after 3 seconds
+        }
+
+        // Function to restart the auction
+        async function restartAuction() {
+            const response = await fetch(`${baseUrl}/api/restart-auction`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert('Auction restarted successfully!');
+                setAuctionTime(); // Restart with the current set auction time
+            } else {
+                alert('Failed to restart the auction.');
+            }
+        }
+
+        // Function to pause the timer
+        function pauseTimer() {
+            isPaused = true;
+        }
+
+        // Function to resume the timer
+        function resumeTimer() {
+            isPaused = false;
+        }
+
+        // Event Listeners for the buttons
+        document.getElementById('setAuctionTimeButton').addEventListener('click', setAuctionTime);
+        document.getElementById('restartAuctionButton').addEventListener('click', restartAuction);
+        document.getElementById('pauseTimerButton').addEventListener('click', pauseTimer);
+        document.getElementById('resumeTimerButton').addEventListener('click', resumeTimer);
+
+        // Initialize the page with a default 30-minute auction time
+        setAuctionTime(); // Initially set the auction time when the page loads
+    </script>
+</body>
+</html>
