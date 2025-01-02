@@ -29,11 +29,18 @@
             padding: 5px;
             margin-right: 10px;
         }
+        #auctionEndedMessage {
+            display: none;
+            color: red;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <h1>Fantasy Auction System</h1>
     <div id="timer">Loading timer...</div>
+    <div id="auctionEndedMessage">Auction has ended!</div>
 
     <table id="playerTable">
         <thead>
@@ -67,29 +74,7 @@
         const baseUrl = "https://fpl-auction.onrender.com"; // Set the backend URL
         let auctionEndTime = 0;
 
-        // Sync timer with the server
-        async function fetchAuctionEndTime() {
-            const response = await fetch(`${baseUrl}/api/auction-end-time`);
-            const data = await response.json();
-            auctionEndTime = data.auctionEndTime;
-            updateTimer();
-            setInterval(updateTimer, 1000); // Update the timer every second
-        }
-
-        // Update countdown timer
-        function updateTimer() {
-            const now = Date.now();
-            const timeLeft = Math.max(0, auctionEndTime - now);
-            const minutes = Math.floor(timeLeft / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-            if (timeLeft === 0) {
-                alert('Auction has ended!');
-            }
-        }
-
-        // Load players and update UI
+        // Function to load and update player data
         async function loadPlayers() {
             const response = await fetch(`${baseUrl}/api/players`);
             const players = await response.json();
@@ -116,6 +101,20 @@
             });
         }
 
+        // Function to fetch and update player data periodically
+        function startPeriodicUpdates() {
+            // Load player data when the page loads
+            loadPlayers();
+
+            // Set interval to update player data every 30 seconds
+            setInterval(() => {
+                loadPlayers(); // Update player list
+            }, 30 * 1000); // 30 seconds
+        }
+
+        // Start the periodic updates
+        startPeriodicUpdates();
+
         // Submit bid to the backend
         async function submitBid(event) {
             event.preventDefault();
@@ -140,9 +139,41 @@
 
         document.getElementById('bidForm').addEventListener('submit', submitBid);
 
+        // ============================
+        // Timer and Auction End Handling
+        // ============================
+        async function fetchAuctionEndTime() {
+            const response = await fetch(`${baseUrl}/api/auction-end-time`);
+            const data = await response.json();
+            auctionEndTime = data.auctionEndTime;
+            updateTimer();
+            setInterval(updateTimer, 1000); // Update the timer every second
+        }
+
+        // Update countdown timer
+        function updateTimer() {
+            const now = Date.now();
+            const timeLeft = Math.max(0, auctionEndTime - now);
+            const minutes = Math.floor(timeLeft / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            if (timeLeft === 0) {
+                clearInterval(timerInterval);
+
+                // Show the "Auction has ended!" message
+                const messageDiv = document.getElementById('auctionEndedMessage');
+                messageDiv.style.display = 'block';
+
+                // Hide the message after 3 seconds
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 3000);
+            }
+        }
+
         // Initial setup
         fetchAuctionEndTime();  // Fetch the auction end time from the server
-        loadPlayers();  // Load players when the page is loaded
     </script>
 </body>
 </html>
