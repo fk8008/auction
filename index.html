@@ -65,8 +65,16 @@
 
     <script>
         const baseUrl = "https://fpl-auction.onrender.com"; // Set the backend URL
+        let auctionEndTime = 0;
 
-        let auctionEndTime = Date.now() + 2 * 60 * 1000; // 2-minute timer
+        // Sync timer with the server
+        async function fetchAuctionEndTime() {
+            const response = await fetch(`${baseUrl}/api/auction-end-time`);
+            const data = await response.json();
+            auctionEndTime = data.auctionEndTime;
+            updateTimer();
+            setInterval(updateTimer, 1000); // Update the timer every second
+        }
 
         // Update countdown timer
         function updateTimer() {
@@ -77,12 +85,9 @@
             document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
             if (timeLeft === 0) {
-                clearInterval(timerInterval);
                 alert('Auction has ended!');
             }
         }
-        const timerInterval = setInterval(updateTimer, 1000);
-        updateTimer();
 
         // Load players and update UI
         async function loadPlayers() {
@@ -119,7 +124,6 @@
             const bidderName = document.getElementById('bidderName').value;
             const bidAmount = parseFloat(document.getElementById('bidAmount').value);
 
-            // Make sure the bid amount is higher than the current highest bid
             const response = await fetch(`${baseUrl}/api/bid`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -128,13 +132,16 @@
 
             const result = await response.json();
             if (result.success) {
-                loadPlayers();  // Reload the players and their bids
+                loadPlayers();
             } else {
                 alert(result.message);
             }
         }
 
         document.getElementById('bidForm').addEventListener('submit', submitBid);
+
+        // Initial setup
+        fetchAuctionEndTime();  // Fetch the auction end time from the server
         loadPlayers();  // Load players when the page is loaded
     </script>
 </body>
