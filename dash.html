@@ -44,6 +44,7 @@
         <button id="restartAuctionButton">Restart Auction</button>
         <button id="pauseTimerButton">Pause Timer</button>
         <button id="resumeTimerButton">Resume Timer</button>
+        <button id="resetBidsButton">Reset All Bids</button> <!-- New button -->
     </div>
 
     <!-- Timer Display -->
@@ -141,11 +142,27 @@
             isPaused = false;
         }
 
+        // Function to reset all bids
+        async function resetBids() {
+            const response = await fetch(`${baseUrl}/api/reset-bids`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert(data.message); // Display success message
+            } else {
+                alert('Failed to reset the bids.');
+            }
+        }
+
         // Event Listeners for the buttons
         document.getElementById('setAuctionTimeButton').addEventListener('click', setAuctionTime);
         document.getElementById('restartAuctionButton').addEventListener('click', restartAuction);
         document.getElementById('pauseTimerButton').addEventListener('click', pauseTimer);
         document.getElementById('resumeTimerButton').addEventListener('click', resumeTimer);
+        document.getElementById('resetBidsButton').addEventListener('click', resetBids); // New event listener
 
         // Initialize the page with a default 30-minute auction time
         setAuctionTime(); // Initially set the auction time when the page loads
