@@ -1,9 +1,9 @@
-// ==========================
-// BACKEND: Node.js + Express
-// ==========================
 const express = require('express');
+const cors = require('cors');  // To handle CORS for frontend-backend communication
 const app = express();
+
 app.use(express.json());
+app.use(cors());  // Enable CORS for frontend requests
 
 let players = [
     { id: 1, name: 'Player 1', highestBid: 0, highestBidder: '' },
@@ -11,14 +11,14 @@ let players = [
     { id: 3, name: 'Player 3', highestBid: 0, highestBidder: '' }
 ];
 
-let auctionEndTime = Date.now() + 30 * 60 * 1000;
+let auctionEndTime = Date.now() + 2 * 60 * 1000; // 2-minute timer
 
-// Get players
+// Endpoint to get players
 app.get('/api/players', (req, res) => {
     res.json(players);
 });
 
-// Submit bid
+// Endpoint to submit a bid
 app.post('/api/bid', (req, res) => {
     if (Date.now() > auctionEndTime) {
         return res.json({ success: false, message: 'Auction has ended.' });
