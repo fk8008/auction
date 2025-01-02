@@ -123,6 +123,12 @@
             const bidderName = document.getElementById('bidderName').value;
             const bidAmount = parseFloat(document.getElementById('bidAmount').value);
 
+            // Show confirmation prompt
+            const confirmation = confirm(`Confirm your bid of $${bidAmount} on ${bidderName} for Player ID: ${playerId}`);
+            if (!confirmation) {
+                return; // If user cancels, don't proceed
+            }
+
             const response = await fetch(`${baseUrl}/api/bid`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
