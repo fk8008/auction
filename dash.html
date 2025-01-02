@@ -66,15 +66,20 @@
                 return;
             }
 
-            auctionEndTime = Date.now() + timeLimit * 60 * 1000; // Set the end time based on user input
-            await fetch(`${baseUrl}/api/set-auction-time`, {
+            const response = await fetch(`${baseUrl}/api/set-auction-time`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ auctionEndTime })
+                body: JSON.stringify({ minutes: timeLimit }) // Send 'minutes' to the backend
             });
 
-            clearInterval(timerInterval); // Reset any ongoing timer interval
-            startTimer();
+            const data = await response.json();
+            if (data.success) {
+                auctionEndTime = data.auctionEndTime; // Update the frontend auctionEndTime
+                clearInterval(timerInterval); // Reset any ongoing timer interval
+                startTimer(); // Restart the timer
+            } else {
+                alert(data.message || 'Failed to set the auction time.');
+            }
         }
 
         // Function to start the auction timer
@@ -83,12 +88,8 @@
         }
 
         // Function to update the auction timer
-        async function updateTimer() {
+        function updateTimer() {
             if (isPaused) return;
-
-            const response = await fetch(`${baseUrl}/api/auction-end-time`);  // Fetch the updated auction end time from the server
-            const data = await response.json();
-            auctionEndTime = data.auctionEndTime;
 
             const now = Date.now();
             const timeLeft = Math.max(0, auctionEndTime - now);
@@ -122,7 +123,9 @@
             const data = await response.json();
             if (data.success) {
                 alert('Auction restarted successfully!');
-                setAuctionTime(); // Restart with the current set auction time
+                auctionEndTime = data.auctionEndTime; // Update the frontend auctionEndTime
+                clearInterval(timerInterval); // Reset any ongoing timer interval
+                startTimer(); // Restart the timer
             } else {
                 alert('Failed to restart the auction.');
             }
