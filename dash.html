@@ -83,8 +83,12 @@
         }
 
         // Function to update the auction timer
-        function updateTimer() {
+        async function updateTimer() {
             if (isPaused) return;
+
+            const response = await fetch(`${baseUrl}/api/auction-end-time`);  // Fetch the updated auction end time from the server
+            const data = await response.json();
+            auctionEndTime = data.auctionEndTime;
 
             const now = Date.now();
             const timeLeft = Math.max(0, auctionEndTime - now);
