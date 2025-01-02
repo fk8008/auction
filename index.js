@@ -60,7 +60,7 @@ app.post('/api/set-auction-time', (req, res) => {
         clearInterval(auctionTimerInterval);
         startAuctionTimer(); // Restart the timer
     }
-    res.json({ success: true });
+    res.json({ success: true, auctionEndTime });  // Send the updated auctionEndTime to the frontend
 });
 
 // Endpoint to restart the auction
@@ -70,14 +70,14 @@ app.post('/api/restart-auction', (req, res) => {
         clearInterval(auctionTimerInterval);
         startAuctionTimer(); // Restart the timer
     }
-    res.json({ success: true });
+    res.json({ success: true, auctionEndTime }); // Send the updated auctionEndTime to the frontend
 });
 
 // Endpoint to pause the auction timer
 app.post('/api/pause-timer', (req, res) => {
     auctionTimerPaused = true;
     clearInterval(auctionTimerInterval); // Pause the timer
-    res.json({ success: true });
+    res.json({ success: true, auctionEndTime }); // Send the updated auctionEndTime to the frontend
 });
 
 // Endpoint to resume the auction timer
@@ -85,7 +85,7 @@ app.post('/api/resume-timer', (req, res) => {
     if (auctionTimerPaused) {
         auctionTimerPaused = false;
         startAuctionTimer(); // Resume the timer
-        res.json({ success: true });
+        res.json({ success: true, auctionEndTime }); // Send the updated auctionEndTime to the frontend
     } else {
         res.json({ success: false, message: 'Timer is already running.' });
     }
