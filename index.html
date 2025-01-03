@@ -22,6 +22,11 @@
             border: 1px solid #ddd;
             text-align: center;
         }
+        th input {
+            width: 90%;
+            padding: 5px;
+            margin: 5px 0;
+        }
         form {
             margin-top: 20px;
         }
@@ -45,9 +50,12 @@
     <table id="playerTable">
         <thead>
             <tr>
-                <th>Player</th>
+                <th>PlayerName <br><input type="text" id="filterPlayerName" placeholder="Filter"></th>
+                <th>PlayerPosition <br><input type="text" id="filterPlayerPosition" placeholder="Filter"></th>
+                <th>PlayerClub <br><input type="text" id="filterPlayerClub" placeholder="Filter"></th>
                 <th>Highest Bid</th>
                 <th>Highest Bidder</th>
+                <th>EnterBid</th>
             </tr>
         </thead>
         <tbody>
@@ -55,131 +63,86 @@
         </tbody>
     </table>
 
-    <form id="bidForm">
-        <label for="playerSelect">Select Player:</label>
-        <select id="playerSelect" required>
-            <!-- Player options will be dynamically populated -->
-        </select>
-        <br>
-        <label for="bidderName">Bidder Name:</label>
-        <input type="text" id="bidderName" required>
-        <br>
-        <label for="bidAmount">Bid Amount:</label>
-        <input type="number" id="bidAmount" min="0" step="0.01" required>
-        <br>
-        <button type="submit">Submit Bid</button>
-    </form>
-
     <script>
         const baseUrl = "https://fpl-auction.onrender.com"; // Set the backend URL
-        let auctionEndTime = 0;
+        let players = [];
 
         // Function to load and update player data
         async function loadPlayers() {
             const response = await fetch(`${baseUrl}/api/players`);
-            const players = await response.json();
+            players = await response.json();
 
-            const playerSelect = document.getElementById('playerSelect');
             const playerTable = document.getElementById('playerTable').getElementsByTagName('tbody')[0];
-
-            playerSelect.innerHTML = '';
             playerTable.innerHTML = '';
 
             players.forEach(player => {
-                const option = document.createElement('option');
-                option.value = player.id;
-                option.textContent = player.name;
-                playerSelect.appendChild(option);
-
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${player.name}</td>
+                    <td>${player.position}</td>
+                    <td>${player.club}</td>
                     <td>${player.highestBid}</td>
                     <td>${player.highestBidder}</td>
+                    <td><input type="number" min="0" step="0.01" data-player-id="${player.id}" class="bidInput"></td>
                 `;
                 playerTable.appendChild(row);
             });
         }
 
-        // Function to fetch and update player data periodically
-        function startPeriodicUpdates() {
-            // Load player data when the page loads
-            loadPlayers();
+        // Add filtering functionality
+        function addFiltering() {
+            const filters = {
+                PlayerName: document.getElementById('filterPlayerName'),
+                PlayerPosition: document.getElementById('filterPlayerPosition'),
+                PlayerClub: document.getElementById('filterPlayerClub'),
+            };
 
-            // Set interval to update player data every 30 seconds
-            setInterval(() => {
-                loadPlayers(); // Update player list
-            }, 30 * 1000); // 30 seconds
-        }
-
-        // Start the periodic updates
-        startPeriodicUpdates();
-
-        // Submit bid to the backend
-        async function submitBid(event) {
-            event.preventDefault();
-
-            const playerId = document.getElementById('playerSelect').value;
-            const bidderName = document.getElementById('bidderName').value;
-            const bidAmount = parseFloat(document.getElementById('bidAmount').value);
-
-            // Show confirmation prompt
-            const confirmation = confirm(`Confirm your bid of $${bidAmount} on ${bidderName} for Player ID: ${playerId}`);
-            if (!confirmation) {
-                return; // If user cancels, don't proceed
-            }
-
-            const response = await fetch(`${baseUrl}/api/bid`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ playerId, bidderName, bidAmount })
+            Object.keys(filters).forEach(key => {
+                filters[key].addEventListener('input', () => {
+                    const filterValue = filters[key].value.toLowerCase();
+                    const rows = document.querySelectorAll('#playerTable tbody tr');
+                    rows.forEach(row => {
+                        const cellText = row.children[key === 'PlayerName' ? 0 : key === 'PlayerPosition' ? 1 : 2].textContent.toLowerCase();
+                        row.style.display = cellText.includes(filterValue) ? '' : 'none';
+                    });
+                });
             });
+        }
 
-            const result = await response.json();
-            if (result.success) {
-                loadPlayers();
-            } else {
-                alert(result.message);
+        // Submit bid directly from the EnterBid column
+        document.addEventListener('input', async (event) => {
+            if (event.target.classList.contains('bidInput')) {
+                const bidAmount = parseFloat(event.target.value);
+                const playerId = event.target.dataset.playerId;
+
+                if (bidAmount > 0) {
+                    const bidderName = prompt('Enter your name for the bid:');
+                    if (!bidderName) {
+                        alert('Bidder name is required!');
+                        return;
+                    }
+
+                    const response = await fetch(`${https://fpl-auction.onrender.com}/api/bid`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ playerId, bidderName, bidAmount })
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        alert(`Bid placed successfully for Player ID ${playerId}.`);
+                        loadPlayers();
+                    } else {
+                        alert(result.message);
+                    }
+                }
             }
-        }
-
-        document.getElementById('bidForm').addEventListener('submit', submitBid);
-
-        // ============================
-        // Timer and Auction End Handling
-        // ============================
-        async function fetchAuctionEndTime() {
-            const response = await fetch(`${baseUrl}/api/auction-end-time`);
-            const data = await response.json();
-            auctionEndTime = data.auctionEndTime;
-            updateTimer();
-            setInterval(updateTimer, 1000); // Update the timer every second
-        }
-
-        // Update countdown timer
-        function updateTimer() {
-            const now = Date.now();
-            const timeLeft = Math.max(0, auctionEndTime - now);
-            const minutes = Math.floor(timeLeft / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-            if (timeLeft === 0) {
-                clearInterval(timerInterval);
-
-                // Show the "Auction has ended!" message
-                const messageDiv = document.getElementById('auctionEndedMessage');
-                messageDiv.style.display = 'block';
-
-                // Hide the message after 3 seconds
-                setTimeout(() => {
-                    messageDiv.style.display = 'none';
-                }, 3000);
-            }
-        }
+        });
 
         // Initial setup
-        fetchAuctionEndTime();  // Fetch the auction end time from the server
+        loadPlayers();
+        addFiltering();
+        setInterval(loadPlayers, 30000); // Refresh player list every 30 seconds
     </script>
 </body>
 </html>
