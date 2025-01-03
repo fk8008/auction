@@ -1,0 +1,610 @@
+PlayerID,PlayerName,PlayerPosition,PlayerClub
+1,A.Doucoure,Midfielders,Everton
+2,A.Fatawu,Midfielders,Leicester
+3,A.Murphy,Defenders,Newcastle
+4,A.Phillips,Defenders,Spurs
+5,Aarons,Defenders,Bournemouth
+6,Abbott,Defenders,Nott'm Forest
+7,Acheampong,Defenders,Chelsea
+8,Adama,Midfielders,Fulham
+9,Adams,Midfielders,Bournemouth
+10,Adingra,Midfielders,Brighton
+11,Agbinone,Midfielders,Crystal Palace
+12,Ahamada,Midfielders,Crystal Palace
+13,Aït-Nouri,Defenders,Wolves
+14,Ajer,Defenders,Brentford
+15,Aké,Defenders,Man City
+16,Alcaraz,Midfielders,Southampton
+17,Alex Moreno,Defenders,Nott'm Forest
+18,Al-Hamadi,Forwards,Ipswich
+19,Alleyne,Defenders,Man City
+20,Almirón,Midfielders,Newcastle
+21,Álvarez,Midfielders,West Ham
+22,Alves,Forwards,Leicester
+23,Amad,Midfielders,Man Utd
+24,Amass,Defenders,Man Utd
+25,Amissah,Defenders,Fulham
+26,Amo-Ameyaw,Midfielders,Southampton
+27,Andersen,Defenders,Fulham
+28,Anderson,Midfielders,Nott'm Forest
+29,André,Midfielders,Wolves
+30,Andreas,Midfielders,Fulham
+31,Andrey Santos,Midfielders,Chelsea
+32,Ângelo,Midfielders,Chelsea
+33,Anthony,Midfielders,Bournemouth
+34,Antony,Midfielders,Man Utd
+35,Aribo,Midfielders,Southampton
+36,Armstrong,Forwards,Everton
+37,Arthur,Defenders,Brentford
+38,Austin,Goalkeepers,Spurs
+39,Awoniyi,Forwards,Nott'm Forest
+40,Ayari,Midfielders,Brighton
+41,B.Badiashile,Defenders,Chelsea
+42,B.Soumaré,Midfielders,Leicester
+43,B.Traore,Midfielders,Wolves
+44,Baggott,Defenders,Ipswich
+45,Bailey,Midfielders,Aston Villa
+46,Bajcetic,Midfielders,Liverpool
+47,Baker-Boaitey,Midfielders,Brighton
+48,Baleba,Midfielders,Brighton
+49,Barco,Defenders,Brighton
+50,Barkley,Midfielders,Aston Villa
+51,Barnes,Midfielders,Newcastle
+52,Barrenechea,Midfielders,Aston Villa
+53,Bassey,Defenders,Fulham
+54,Bates,Midfielders,Everton
+55,Bayindir,Goalkeepers,Man Utd
+56,Bazunu,Goalkeepers,Southampton
+57,Bednarek,Defenders,Southampton
+58,Begovic,Goalkeepers,Everton
+59,Bella-Kotchap,Defenders,Southampton
+60,Bellegarde,Midfielders,Wolves
+61,Benda,Goalkeepers,Fulham
+62,Bentancur,Midfielders,Spurs
+63,Bentley,Goalkeepers,Wolves
+64,Berge,Midfielders,Fulham
+65,Bergström,Goalkeepers,Chelsea
+66,Bergvall,Midfielders,Spurs
+67,Bernardo,Midfielders,Man City
+68,Beto,Forwards,Everton
+69,Bettinelli,Goalkeepers,Chelsea
+70,Bissouma,Midfielders,Spurs
+71,Bobb,Midfielders,Man City
+72,Bogarde,Defenders,Aston Villa
+73,Boly,Defenders,Nott'm Forest
+74,Botman,Defenders,Newcastle
+75,Bowler,Midfielders,Nott'm Forest
+76,Bradley,Defenders,Liverpool
+77,Bree,Defenders,Southampton
+78,Brereton Díaz,Midfielders,Southampton
+79,Brierley,Midfielders,Brentford
+80,Brits,Goalkeepers,Man City
+81,Broadhead,Midfielders,Ipswich
+82,Broggio,Midfielders,Aston Villa
+83,Broja,Forwards,Everton
+84,Brooks,Midfielders,Bournemouth
+85,Bryan,Midfielders,Spurs
+86,Buendia,Midfielders,Aston Villa
+87,Burgess,Defenders,Ipswich
+88,Burn,Defenders,Newcastle
+89,Burns,Midfielders,Ipswich
+90,Butler-Oyedeji,Forwards,Arsenal
+91,C.Doucouré,Midfielders,Crystal Palace
+92,C.Miguel,Goalkeepers,Nott'm Forest
+93,C.Richards,Defenders,Crystal Palace
+94,C.Soler,Midfielders,West Ham
+95,Cahill,Goalkeepers,Brighton
+96,Cairney,Midfielders,Fulham
+97,Cajuste,Forwards,Ipswich
+98,Calafiori,Defenders,Arsenal
+99,Cannon,Forwards,Leicester
+100,Carson,Goalkeepers,Man City
+101,Cartwright,Midfielders,Leicester
+102,Carvalho,Midfielders,Brentford
+103,Casadei,Midfielders,Chelsea
+104,Casemiro,Midfielders,Man Utd
+105,Casey,Defenders,West Ham
+106,Castagne,Defenders,Fulham
+107,Chadi Riad,Defenders,Crystal Palace
+108,Chalobah,Defenders,Chelsea
+109,Chalobah,Defenders,Crystal Palace
+110,Chaplin,Midfielders,Ipswich
+111,Charles,Midfielders,Southampton
+112,Chiesa,Midfielders,Liverpool
+113,Chilwell,Defenders,Chelsea
+114,Chiquinho,Midfielders,Wolves
+115,Chirewa,Midfielders,Wolves
+116,Chiwome,Forwards,Wolves
+117,Choudhury,Midfielders,Leicester
+118,Christie,Midfielders,Bournemouth
+119,Chukwuemeka,Midfielders,Chelsea
+120,Clark,Midfielders,Liverpool
+121,Clarke,Defenders,Ipswich
+122,Clyne,Defenders,Crystal Palace
+123,Coady,Defenders,Leicester
+124,Coleman,Defenders,Everton
+125,Collins,Defenders,Brentford
+126,Collyer,Forwards,Man Utd
+127,Cook,Midfielders,Bournemouth
+128,Cornet,Midfielders,Southampton
+129,Coufal,Defenders,West Ham
+130,Cozier-Duberry,Midfielders,Brighton
+131,Cresswell,Defenders,West Ham
+132,Cucurella,Defenders,Chelsea
+133,Cundle,Midfielders,Wolves
+134,D.D.Fofana,Forwards,Chelsea
+135,Da Silva Moreira,Midfielders,Nott'm Forest
+136,Dahoud,Midfielders,Brighton
+137,Daka,Forwards,Leicester
+138,Danilo,Midfielders,Nott'm Forest
+139,Danns,Forwards,Liverpool
+140,Darwin,Forwards,Liverpool
+141,Dasilva,Midfielders,Brentford
+142,Davies,Defenders,Spurs
+143,Davies,Goalkeepers,Liverpool
+144,Dawson,Defenders,Wolves
+145,De Cordova-Reid,Midfielders,Leicester
+146,Deivid,Forwards,Chelsea
+147,Dendoncker,Midfielders,Aston Villa
+148,Dennis,Forwards,Nott'm Forest
+149,Dennis,Goalkeepers,Bournemouth
+150,Devenny,Midfielders,Crystal Palace
+151,Devine,Midfielders,Spurs
+152,Dewsbury-Hall,Midfielders,Chelsea
+153,Diaby,Midfielders,Aston Villa
+154,Diego Carlos,Defenders,Aston Villa
+155,Diogo J.,Midfielders,Liverpool
+156,Diop,Defenders,Fulham
+157,Disasi,Defenders,Chelsea
+158,Dixon,Defenders,Everton
+159,Doak,Midfielders,Liverpool
+160,Dobbin,Midfielders,Aston Villa
+161,Doherty,Defenders,Wolves
+162,Dominguez,Midfielders,Nott'm Forest
+163,Dorrington,Defenders,Spurs
+164,Downes,Midfielders,Southampton
+165,Doyle,Midfielders,Wolves
+166,Dragusin,Defenders,Spurs
+167,Dúbravka,Goalkeepers,Newcastle
+168,Dunk,Defenders,Brighton
+169,E.Royal,Defenders,Spurs
+170,Earthy,Midfielders,West Ham
+171,Ebiowei,Midfielders,Crystal Palace
+172,Edmundson,Defenders,Ipswich
+173,Edouard,Forwards,Leicester
+174,Edozie,Midfielders,Southampton
+175,Edozie,Midfielders,Wolves
+176,Edwards,Defenders,Southampton
+177,El Khannouss,Midfielders,Leicester
+178,Elanga,Midfielders,Nott'm Forest
+179,Elliott,Midfielders,Liverpool
+180,Emerson,Defenders,West Ham
+181,Enciso,Midfielders,Brighton
+182,Endo,Midfielders,Liverpool
+183,Enes Ünal,Forwards,Bournemouth
+184,Enzo,Midfielders,Chelsea
+185,Eriksen,Midfielders,Man Utd
+186,Estupiñan,Defenders,Brighton
+187,Evanilson,Forwards,Bournemouth
+188,Evans,Defenders,Man Utd
+189,Eze,Midfielders,Crystal Palace
+190,F.Kad?o?lu,Defenders,Brighton
+191,Fabianski,Goalkeepers,West Ham
+192,Fábio Silva,Forwards,Wolves
+193,Fábio Vieira,Midfielders,Arsenal
+194,Faes,Defenders,Leicester
+195,Faivre,Midfielders,Bournemouth
+196,Ferguson,Forwards,Brighton
+197,Fitzgerald,Midfielders,Man Utd
+198,Fletcher,Midfielders,Man Utd
+199,Foderingham,Goalkeepers,West Ham
+200,Forbs,Midfielders,Wolves
+201,Forster,Goalkeepers,Spurs
+202,Fraser,Midfielders,Southampton
+203,Fraser,Forwards,Wolves
+204,Fraser,Midfielders,Newcastle
+205,Füllkrug,Forwards,West Ham
+206,G.Jesus,Forwards,Arsenal
+207,G.Nunes,Midfielders,Brentford
+208,G.Rodríguez,Midfielders,West Ham
+209,Gabriel,Defenders,Arsenal
+210,Gakpo,Forwards,Liverpool
+211,Gallagher,Midfielders,Chelsea
+212,Gana,Midfielders,Everton
+213,Garner,Midfielders,Everton
+214,Gauci,Goalkeepers,Aston Villa
+215,George,Midfielders,Chelsea
+216,Georginio,Midfielders,Brighton
+217,Gibbs-White,Midfielders,Nott'm Forest
+218,Gilchrist,Defenders,Chelsea
+219,Gilmour,Midfielders,Brighton
+220,Godo,Forwards,Fulham
+221,Golding,Midfielders,Leicester
+222,Gomez,Defenders,Liverpool
+223,Gonzalez,Midfielders,Wolves
+224,Gravenberch,Midfielders,Liverpool
+225,Gray,Midfielders,Spurs
+226,Grealish,Midfielders,Man City
+227,Greaves,Defenders,Ipswich
+228,Gross,Midfielders,Brighton
+229,Gruda,Midfielders,Brighton
+230,Guedes,Midfielders,Wolves
+231,Gündogan,Midfielders,Man City
+232,Gusto,Defenders,Chelsea
+233,H.Bueno,Defenders,Wolves
+234,H.Clarke,Defenders,Ipswich
+235,H.Traorè,Midfielders,Bournemouth
+236,Hall,Defenders,Newcastle
+237,Hannibal,Midfielders,Man Utd
+238,Hardy,Defenders,Spurs
+239,Harness,Midfielders,Ipswich
+240,Harris,Defenders,Bournemouth
+241,Harris,Midfielders,Fulham
+242,Harrison,Midfielders,Everton
+243,Harwood-Bellis,Defenders,Southampton
+244,Hause,Defenders,Aston Villa
+245,Havertz,Forwards,Arsenal
+246,Hayden,Midfielders,Newcastle
+247,Heaton,Goalkeepers,Man Utd
+248,Heaven,Defenders,Arsenal
+249,Hee Chan,Midfielders,Wolves
+250,Hein,Goalkeepers,Arsenal
+251,Henry,Defenders,Brentford
+252,Hickey,Defenders,Brentford
+253,Hill,Defenders,Bournemouth
+254,Hinshelwood,Midfielders,Brighton
+255,Hirst,Forwards,Ipswich
+256,Hodge,Midfielders,Wolves
+257,Hoever,Defenders,Wolves
+258,Højbjerg,Midfielders,Spurs
+259,Holding,Defenders,Crystal Palace
+260,Holgate,Defenders,Everton
+261,Hudson-Odoi,Midfielders,Nott'm Forest
+262,Hughes,Midfielders,Crystal Palace
+263,Huijsen,Defenders,Bournemouth
+264,Humphreys,Midfielders,Ipswich
+265,Hutchinson,Midfielders,Ipswich
+266,I.Osman,Midfielders,Brighton
+267,I.Sarr,Midfielders,Crystal Palace
+268,Igor,Defenders,Brighton
+269,Iling Jr,Midfielders,Aston Villa
+270,Ings,Forwards,West Ham
+271,Iroegbunam,Midfielders,Everton
+272,Irving,Midfielders,West Ham
+273,Iversen,Goalkeepers,Leicester
+274,J.Alvarez,Forwards,Man City
+275,J.Araujo,Defenders,Bournemouth
+276,J.Ayew,Midfielders,Leicester
+277,J.Clarke,Midfielders,Ipswich
+278,J.Cuenca,Defenders,Fulham
+279,J.Gomes,Midfielders,Wolves
+280,J.Murphy,Midfielders,Newcastle
+281,J.Virginia,Goalkeepers,Everton
+282,Jaden,Midfielders,Aston Villa
+283,James,Defenders,Chelsea
+284,Janelt,Midfielders,Brentford
+285,Jaros,Goalkeepers,Liverpool
+286,Jebbison,Forwards,Bournemouth
+287,Jensen,Midfielders,Brentford
+288,Ji-soo,Defenders,Brentford
+289,João Cancelo,Defenders,Man City
+290,João Félix,Midfielders,Chelsea
+291,Joelinton,Midfielders,Newcastle
+292,Johnson,Defenders,Ipswich
+293,Johnson,Midfielders,Spurs
+294,Johnstone,Goalkeepers,Wolves
+295,Jørgensen,Goalkeepers,Chelsea
+296,Jorginho,Midfielders,Arsenal
+297,José Sá,Goalkeepers,Wolves
+298,Jota Silva,Midfielders,Nott'm Forest
+299,Kabia,Midfielders,Arsenal
+300,Kaboré,Defenders,Man City
+301,Kacurri,Defenders,Arsenal
+302,Kalajdži?,Forwards,Wolves
+303,Kamada,Midfielders,Crystal Palace
+304,Kamaldeen,Midfielders,Southampton
+305,Kamara,Midfielders,Aston Villa
+306,Kelleher,Goalkeepers,Liverpool
+307,Kelly,Defenders,Newcastle
+308,Kellyman,Midfielders,Chelsea
+309,Kesler-Hayden,Defenders,Aston Villa
+310,Kilman,Defenders,West Ham
+311,King,Midfielders,Fulham
+312,King,Defenders,Spurs
+313,King,Goalkeepers,Wolves
+314,Kinsey,Defenders,Bournemouth
+315,Kiwior,Defenders,Arsenal
+316,Kluivert,Midfielders,Bournemouth
+317,Konak,Midfielders,Brentford
+318,Kozlowski,Midfielders,Brighton
+319,Kporha,Defenders,Crystal Palace
+320,Krafth,Defenders,Newcastle
+321,Kristiansen,Defenders,Leicester
+322,Kudus,Midfielders,West Ham
+323,Kukonki,Defenders,Man Utd
+324,Kuol,Midfielders,Newcastle
+325,L.Guilherme,Midfielders,West Ham
+326,L.Paquetá,Midfielders,West Ham
+327,Lacroix,Defenders,Crystal Palace
+328,Ladapo,Forwards,Ipswich
+329,Lallana,Midfielders,Southampton
+330,Lamptey,Defenders,Brighton
+331,Lankshear,Forwards,Spurs
+332,Larios,Defenders,Southampton
+333,Lascelles,Defenders,Newcastle
+334,Lavia,Midfielders,Chelsea
+335,Lerma,Midfielders,Crystal Palace
+336,Lewis,Defenders,Newcastle
+337,Lewis-Potter,Midfielders,Brentford
+338,Lewis-Skelly,Midfielders,Arsenal
+339,Lindelof,Defenders,Man Utd
+340,Lindstrøm,Midfielders,Everton
+341,Lis,Goalkeepers,Southampton
+342,Lo Celso,Midfielders,Spurs
+343,Longstaff,Midfielders,Newcastle
+344,Lukaku,Forwards,Chelsea
+345,Luki?,Midfielders,Fulham
+346,Lumley,Goalkeepers,Southampton
+347,Luongo,Midfielders,Ipswich
+348,M.Fernandes,Midfielders,Southampton
+349,M.França,Midfielders,Crystal Palace
+350,M.Sarr,Defenders,Chelsea
+351,Maatsen,Defenders,Aston Villa
+352,Maghoma,Midfielders,Brentford
+353,Maguire,Defenders,Man Utd
+354,Mainoo,Midfielders,Man Utd
+355,Malacia,Defenders,Man Utd
+356,Mangala,Midfielders,Everton
+357,Manning,Defenders,Southampton
+358,Mara,Forwards,Southampton
+359,Marc Guiu,Forwards,Chelsea
+360,Marcal,Midfielders,Leicester
+361,March,Midfielders,Brighton
+362,Mario Jr.,Midfielders,Wolves
+363,Marschall,Goalkeepers,Aston Villa
+364,Marsh,Forwards,Crystal Palace
+365,Matheus N.,Midfielders,Man City
+366,Matthews,Goalkeepers,Crystal Palace
+367,Maupay,Forwards,Everton
+368,Mavididi,Midfielders,Leicester
+369,Mavropanos,Defenders,West Ham
+370,Mayers,Defenders,West Ham
+371,Mazilu,Midfielders,Brighton
+372,Mbabu,Defenders,Fulham
+373,McAtee,Midfielders,Man City
+374,McAteer,Midfielders,Leicester
+375,McCarthy,Goalkeepers,Southampton
+376,McConnell,Midfielders,Liverpool
+377,McConville,Defenders,Brighton
+378,McGinn,Midfielders,Aston Villa
+379,McTominay,Midfielders,Man Utd
+380,Mee,Defenders,Brentford
+381,Meghoma,Defenders,Brentford
+382,Mepham,Defenders,Bournemouth
+383,Merino,Midfielders,Arsenal
+384,Metcalfe,Forwards,Everton
+385,Meupiyou,Defenders,Wolves
+386,Mighten,Midfielders,Nott'm Forest
+387,Milenkovic,Defenders,Nott'm Forest
+388,Miley,Midfielders,Newcastle
+389,Milner,Midfielders,Brighton
+390,Mings,Defenders,Aston Villa
+391,Minteh,Midfielders,Brighton
+392,Mitchell,Defenders,Crystal Palace
+393,Moder,Midfielders,Brighton
+394,Moore,Forwards,Spurs
+395,Moran,Midfielders,Brighton
+396,Morato,Defenders,Nott'm Forest
+397,Morsy,Midfielders,Ipswich
+398,Morton,Midfielders,Liverpool
+399,Mosquera,Defenders,Wolves
+400,Mount,Midfielders,Man Utd
+401,Mubama,Forwards,Man City
+402,Mudryk,Midfielders,Chelsea
+403,Muniz,Forwards,Fulham
+404,Muric,Goalkeepers,Ipswich
+405,Mykolenko,Defenders,Everton
+406,N.Aguerd,Defenders,West Ham
+407,N.Phillips,Defenders,Liverpool
+408,N.Semedo,Defenders,Wolves
+409,N.Williams,Defenders,Nott'm Forest
+410,Nallo,Defenders,Liverpool
+411,Ndaba,Defenders,Ipswich
+412,Ndidi,Midfielders,Leicester
+413,Nedeljkovic,Defenders,Aston Villa
+414,Nelson,Defenders,Leicester
+415,Neto,Goalkeepers,Arsenal
+416,Nichols,Defenders,Arsenal
+417,Nketiah,Forwards,Crystal Palace
+418,Nørgaard,Midfielders,Brentford
+419,Nwaneri,Midfielders,Arsenal
+420,Nyoni,Midfielders,Liverpool
+421,O.Dango,Midfielders,Bournemouth
+422,O.Richards,Defenders,Nott'm Forest
+423,O’Mahony,Forwards,Brighton
+424,O’Reilly,Midfielders,Man City
+425,O'Brien,Defenders,Everton
+426,O'Brien,Midfielders,Nott'm Forest
+427,O'Brien-Whitmarsh,Midfielders,Southampton
+428,Odobert,Midfielders,Spurs
+429,Odysseas,Goalkeepers,Newcastle
+430,Offiah,Defenders,Brighton
+431,Ogbene,Midfielders,Ipswich
+432,Okoli,Defenders,Leicester
+433,Olsen,Goalkeepers,Aston Villa
+434,Olusesi,Midfielders,Spurs
+435,Omobamidele,Defenders,Nott'm Forest
+436,Onana,Midfielders,Aston Villa
+437,Onana,Goalkeepers,Man Utd
+438,Onuachu,Forwards,Southampton
+439,Onyeka,Midfielders,Brentford
+440,Orford,Midfielders,West Ham
+441,O'Riley,Midfielders,Brighton
+442,Ortega Moreno,Goalkeepers,Man City
+443,O'Shea,Defenders,Ipswich
+444,Osula,Forwards,Newcastle
+445,Oulad M'hand,Midfielders,Arsenal
+446,Ozoh,Midfielders,Crystal Palace
+447,P.M.Sarr,Midfielders,Spurs
+448,P.Sarr,Midfielders,Spurs
+449,Panzo,Defenders,Nott'm Forest
+450,Patterson,Defenders,Everton
+451,Pau,Defenders,Aston Villa
+452,Paulsen,Goalkeepers,Bournemouth
+453,Peart-Harris,Midfielders,Brentford
+454,Pedro Lima,Defenders,Wolves
+455,Pellistri,Midfielders,Man Utd
+456,Petrovic,Goalkeepers,Chelsea
+457,Petrovi?,Goalkeepers,Chelsea
+458,Peupion,Midfielders,Brighton
+459,Philip,Midfielders,Bournemouth
+460,Phillips,Midfielders,Ipswich
+461,Pickford,Goalkeepers,Everton
+462,Pinnock,Defenders,Brentford
+463,Pivas,Defenders,Newcastle
+464,Podence,Midfielders,Wolves
+465,Pond,Defenders,Wolves
+466,Quansah,Defenders,Liverpool
+467,R.Gomes,Midfielders,Wolves
+468,R.Williams,Defenders,Liverpool
+469,Rak-Sakyi,Midfielders,Crystal Palace
+470,Rak-Sakyi,Midfielders,Chelsea
+471,Ramsey,Midfielders,Aston Villa
+472,Rashford,Midfielders,Man Utd
+473,Raúl,Forwards,Fulham
+474,Raya,Goalkeepers,Arsenal
+475,Ream,Defenders,Fulham
+476,Reed,Midfielders,Fulham
+477,Rees-Dottin,Forwards,Bournemouth
+478,Reguilón,Defenders,Spurs
+479,Renato Veiga,Midfielders,Chelsea
+480,Ricardo,Defenders,Leicester
+481,Richarlison,Forwards,Spurs
+482,Rodney,Midfielders,Crystal Palace
+483,Rodrigo,Midfielders,Man City
+484,Roerslev,Defenders,Brentford
+485,Rúben,Defenders,Man City
+486,Ruddy,Goalkeepers,Newcastle
+487,Rushworth,Goalkeepers,Brighton
+488,S.Bueno,Defenders,Wolves
+489,Saka,Midfielders,Arsenal
+490,Samuels,Defenders,Brighton
+491,Sánchez,Goalkeepers,Chelsea
+492,Sancho,Midfielders,Man Utd
+493,Sancho,Midfielders,Chelsea
+494,Sangaré,Midfielders,Nott'm Forest
+495,Sarabia,Midfielders,Wolves
+496,Sarmiento,Midfielders,Brighton
+497,Scarles,Defenders,West Ham
+498,Scarlett,Forwards,Spurs
+499,Schade,Midfielders,Brentford
+500,Schlupp,Midfielders,Crystal Palace
+501,Scott,Midfielders,Bournemouth
+502,Sels,Goalkeepers,Nott'm Forest
+503,Semenyo,Midfielders,Bournemouth
+504,Senesi,Defenders,Bournemouth
+505,Sessegnon,Defenders,Fulham
+506,Setford,Goalkeepers,Arsenal
+507,Shaw,Defenders,Man Utd
+508,Simpson-Pusey,Defenders,Man City
+509,Sinisalo,Goalkeepers,Aston Villa
+510,Sinisterra,Midfielders,Bournemouth
+511,Skipp,Midfielders,Leicester
+512,Slater,Defenders,Brighton
+513,Slicker,Goalkeepers,Ipswich
+514,Smallbone,Midfielders,Southampton
+515,Smith,Defenders,Bournemouth
+516,Solomon,Midfielders,Spurs
+517,Sosa,Midfielders,Nott'm Forest
+518,Sou?ek,Midfielders,West Ham
+519,Sousa,Defenders,Aston Villa
+520,Souttar,Defenders,Leicester
+521,Spence,Defenders,Spurs
+522,Stansfield,Forwards,Fulham
+523,Steele,Goalkeepers,Brighton
+524,Stephens,Defenders,Southampton
+525,Sterling,Midfielders,Arsenal
+526,Stewart,Forwards,Southampton
+527,Stolarczyk,Goalkeepers,Leicester
+528,Sugawara,Defenders,Southampton
+529,Summerville,Midfielders,West Ham
+530,Swinkels,Defenders,Aston Villa
+531,Targett,Defenders,Newcastle
+532,Tavernier,Midfielders,Bournemouth
+533,Taylor,Midfielders,Ipswich
+534,Taylor,Defenders,Southampton
+535,Thiago,Forwards,Brentford
+536,Thomas,Midfielders,Arsenal
+537,Thomas,Defenders,Leicester
+538,Tielemans,Midfielders,Aston Villa
+539,Tierney,Defenders,Arsenal
+540,Todibo,Defenders,West Ham
+541,Toffolo,Defenders,Nott'm Forest
+542,Tomiyasu,Defenders,Arsenal
+543,Toney,Forwards,Brentford
+544,Tosin,Defenders,Chelsea
+545,Toti,Defenders,Wolves
+546,Townsend,Defenders,Ipswich
+547,Travers,Goalkeepers,Bournemouth
+548,Trevitt,Midfielders,Brentford
+549,Trippier,Defenders,Newcastle
+550,Trossard,Midfielders,Arsenal
+551,Tsimikas,Defenders,Liverpool
+552,Tuanzebe,Defenders,Ipswich
+553,Turner,Goalkeepers,Crystal Palace
+554,Udogie,Defenders,Spurs
+555,Ugarte,Midfielders,Man Utd
+556,Ugochukwu,Midfielders,Southampton
+557,Ui-jo,Forwards,Nott'm Forest
+558,Umeh-Chibueze,Midfielders,Crystal Palace
+559,Undav,Forwards,Brighton
+560,Valdimarsson,Goalkeepers,Brentford
+561,Van de Ven,Defenders,Spurs
+562,Van den Berg,Defenders,Brentford
+563,Van Hecke,Defenders,Brighton
+564,Vardy,Forwards,Leicester
+565,Veliz,Forwards,Spurs
+566,Veltman,Defenders,Brighton
+567,Vestergaard,Defenders,Leicester
+568,Vinicius,Forwards,Fulham
+569,W.Fofana,Defenders,Chelsea
+570,Walker-Peters,Defenders,Southampton
+571,Walton,Goalkeepers,Ipswich
+572,Wan-Bissaka,Defenders,West Ham
+573,Ward,Goalkeepers,Leicester
+574,Ward,Defenders,Crystal Palace
+575,Ward-Prowse,Midfielders,Nott'm Forest
+576,Webster,Defenders,Brighton
+577,Welbeck,Forwards,Brighton
+578,Werner,Midfielders,Spurs
+579,Wharton,Midfielders,Crystal Palace
+580,Wheatley,Forwards,Man Utd
+581,White,Midfielders,Newcastle
+582,Whiteman,Goalkeepers,Spurs
+583,Wieffer,Midfielders,Brighton
+584,Wiley,Defenders,Chelsea
+585,Williams-Barnett,Midfielders,Spurs
+586,Willock,Midfielders,Newcastle
+587,Wilson,Midfielders,Fulham
+588,Wilson,Forwards,Newcastle
+589,Wilson-Brown,Defenders,Leicester
+590,Wilson-Esbrand,Defenders,Man City
+591,Winks,Midfielders,Leicester
+592,Winterburn,Midfielders,Bournemouth
+593,Wood,Defenders,Southampton
+594,Woolfenden,Defenders,Ipswich
+595,Worrall,Defenders,Nott'm Forest
+596,Wright,Midfielders,Man City
+597,Y. Chermiti,Forwards,Everton
+598,Yarmoliuk,Midfielders,Brentford
+599,Yates,Midfielders,Nott'm Forest
+600,Yogane,Midfielders,Brentford
+601,Yoro,Defenders,Man Utd
+602,Young,Defenders,Everton
+603,Young,Midfielders,Aston Villa
+604,Zabarnyi,Defenders,Bournemouth
+605,Zanka,Defenders,Brentford
+606,Zinchenko,Defenders,Arsenal
+607,Zirkzee,Forwards,Man Utd
+608,Zouma,Defenders,West Ham
+609,Zych,Goalkeepers,Aston Villa
