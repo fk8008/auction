@@ -1,37 +1,30 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
-const multer = require('multer');
-const csvParser = require('csv-parser');
-
+const axios = require('axios');
+const csv = require('csv-parser'); // Use csv-parser to parse CSV files
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-// Use multer to handle file uploads
-const upload = multer({ dest: 'uploads/' });
+let players = [];
 
-let players = [
-    { id: 1, name: 'Player 1', highestBid: 0, highestBidder: '' },
-    { id: 2, name: 'Player 2', highestBid: 0, highestBidder: '' },
-    { id: 3, name: 'Player 3', highestBid: 0, highestBidder: '' }
-];
-let bidLogs = []; // To store bid logs
-
-// Auction timing and state
+// Store auction end time on the server (initially set to 2 minutes from server start)
 let auctionEndTime = Date.now() + 2 * 60 * 1000; // 2-minute timer
 let auctionTimerPaused = false; // Track if the timer is paused
 let auctionTimerInterval;
 
-// Function to load players from a CSV file
-function loadPlayersFromCSV(filePath) {
-    const data = [];
-    return new Promise((resolve, reject) => {
-        fs.createReadStream(filePath)
-            .pipe(csvParser())
-            .on('data', row => {
-                data.push({
+// Fetch and load players from GitHub CSV
+async function fetchPlayersFromGitHub() {
+    const githubCsvUrl = "https://raw.githubusercontent.com/fk8008/auction/refs/heads/main/players.csv"; // Replace with your raw GitHub URL
+    try {
+        const response = await axios.get(githubCsvUrl, { responseType: 'stream' });
+        const newPlayers = [];
+
+        response.data
+            .pipe(csv())
+            .on('data', (row) => {
+                newPlayers.push({
                     id: parseInt(row.PlayerID),
                     name: row.PlayerName,
                     position: row.PlayerPosition,
@@ -41,24 +34,23 @@ function loadPlayersFromCSV(filePath) {
                 });
             })
             .on('end', () => {
-                resolve(data);
-            })
-            .on('error', error => {
-                reject(error);
+                players = newPlayers; // Replace the existing players array
+                console.log('Players successfully loaded from GitHub.');
             });
-    });
+    } catch (error) {
+        console.error('Error fetching or parsing players CSV:', error.message);
+    }
 }
 
-// Log a bid
-function logBid(playerId, playerName, bidderName, bidAmount) {
-    bidLogs.push({
-        playerId,
-        playerName,
-        bidderName,
-        bidAmount,
-        timestamp: new Date().toISOString()
-    });
-}
+// Endpoint to manually trigger GitHub fetch
+app.get('/api/load-players-from-github', async (req, res) => {
+    try {
+        await fetchPlayersFromGitHub();
+        res.json({ success: true, message: 'Players loaded successfully from GitHub.', players });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to load players from GitHub.', error: error.message });
+    }
+});
 
 // Endpoint to reset all bids
 app.post('/api/reset-bids', (req, res) => {
@@ -68,18 +60,6 @@ app.post('/api/reset-bids', (req, res) => {
     });
 
     res.json({ success: true, message: 'All bids have been reset.' });
-});
-
-// Endpoint to upload and initialize players from a CSV file
-app.post('/api/upload-players', upload.single('file'), async (req, res) => {
-    try {
-        const filePath = req.file.path;
-        players = await loadPlayersFromCSV(filePath);
-        fs.unlinkSync(filePath); // Delete the uploaded file
-        res.json({ success: true, message: 'Players loaded successfully.', players });
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Failed to load players.', error: error.message });
-    }
 });
 
 // Endpoint to get the auction end time
@@ -112,41 +92,50 @@ app.post('/api/bid', (req, res) => {
     player.highestBid = bidAmount;
     player.highestBidder = bidderName;
 
-    // Log the bid
-    logBid(player.id, player.name, bidderName, bidAmount);
-
     res.json({ success: true });
 });
 
-// Endpoint to set the auction time limit
+// Endpoint to set the auction time limit (in minutes)
 app.post('/api/set-auction-time', (req, res) => {
     const { minutes } = req.body;
     if (isNaN(minutes) || minutes < 1 || minutes > 120) {
         return res.status(400).json({ success: false, message: 'Please set a valid time limit between 1 and 120 minutes.' });
     }
-    auctionEndTime = Date.now() + minutes * 60 * 1000;
+    auctionEndTime = Date.now() + minutes * 60 * 1000; // Set auction end time to the specified duration
     if (!auctionTimerPaused) {
         clearInterval(auctionTimerInterval);
-        startAuctionTimer();
+        startAuctionTimer(); // Restart the timer
     }
-    res.json({ success: true, auctionEndTime });
+    res.json({ success: true, auctionEndTime });  // Send the updated auctionEndTime to the frontend
 });
 
-// Endpoint to export all bid logs as CSV
-app.get('/api/export-bids', (req, res) => {
-    const header = 'Player ID,Player Name,Bidder Name,Bid Amount,Timestamp\n';
-    const rows = bidLogs.map(log =>
-        `${log.playerId},${log.playerName},${log.bidderName},${log.bidAmount},${log.timestamp}`
-    ).join('\n');
-
-    const csv = header + rows;
-
-    res.setHeader('Content-Type', 'text/csv');
-    res.setHeader('Content-Disposition', 'attachment; filename=bids.csv');
-    res.send(csv);
+// Endpoint to restart the auction
+app.post('/api/restart-auction', (req, res) => {
+    auctionEndTime = Date.now() + 2 * 60 * 1000; // Reset to 2 minutes from now
+    if (!auctionTimerPaused) {
+        clearInterval(auctionTimerInterval);
+        startAuctionTimer(); // Restart the timer
+    }
+    res.json({ success: true, auctionEndTime }); // Send the updated auctionEndTime to the frontend
 });
 
-// Other auction timer-related endpoints remain unchanged...
+// Endpoint to pause the auction timer
+app.post('/api/pause-timer', (req, res) => {
+    auctionTimerPaused = true;
+    clearInterval(auctionTimerInterval); // Pause the timer
+    res.json({ success: true, auctionEndTime }); // Send the updated auctionEndTime to the frontend
+});
+
+// Endpoint to resume the auction timer
+app.post('/api/resume-timer', (req, res) => {
+    if (auctionTimerPaused) {
+        auctionTimerPaused = false;
+        startAuctionTimer(); // Resume the timer
+        res.json({ success: true, auctionEndTime }); // Send the updated auctionEndTime to the frontend
+    } else {
+        res.json({ success: false, message: 'Timer is already running.' });
+    }
+});
 
 // Function to start auction timer
 function startAuctionTimer() {
@@ -161,13 +150,16 @@ function startAuctionTimer() {
         if (timeLeft === 0) {
             clearInterval(auctionTimerInterval);
             console.log('Auction has ended!');
-            // Additional logic for when the auction ends
+            // Additional logic for when the auction ends (e.g., notify clients)
         }
     }, 1000);
 }
 
 // Start the auction timer on server start
 startAuctionTimer();
+
+// Load players from GitHub on server start
+fetchPlayersFromGitHub();
 
 // Start the server
 app.listen(3000, () => {
