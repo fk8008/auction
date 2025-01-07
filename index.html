@@ -22,6 +22,9 @@
             border: 1px solid #ddd;
             text-align: center;
         }
+        th {
+            cursor: pointer;
+        }
         form {
             margin-top: 20px;
         }
@@ -45,9 +48,11 @@
     <table id="playerTable">
         <thead>
             <tr>
-                <th>Player</th>
-                <th>Highest Bid</th>
-                <th>Highest Bidder</th>
+                <th onclick="sortTable(0)">Player Name</th>
+                <th onclick="sortTable(1)">Position</th>
+                <th onclick="sortTable(2)">Club</th>
+                <th onclick="sortTable(3)">Highest Bid</th>
+                <th onclick="sortTable(4)">Highest Bidder</th>
             </tr>
         </thead>
         <tbody>
@@ -94,8 +99,10 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${player.name}</td>
+                    <td>${player.position || 'N/A'}</td>
+                    <td>${player.club || 'N/A'}</td>
                     <td>${player.highestBid}</td>
-                    <td>${player.highestBidder}</td>
+                    <td>${player.highestBidder || 'None'}</td>
                 `;
                 playerTable.appendChild(row);
             });
@@ -103,17 +110,28 @@
 
         // Function to fetch and update player data periodically
         function startPeriodicUpdates() {
-            // Load player data when the page loads
-            loadPlayers();
+            loadPlayers(); // Load player data when the page loads
 
             // Set interval to update player data every 30 seconds
-            setInterval(() => {
-                loadPlayers(); // Update player list
-            }, 30 * 1000); // 30 seconds
+            setInterval(loadPlayers, 30000); // 30 seconds
         }
 
-        // Start the periodic updates
-        startPeriodicUpdates();
+        // Sort table by column index
+        function sortTable(columnIndex) {
+            const table = document.getElementById("playerTable");
+            const rows = Array.from(table.rows).slice(1); // Exclude the header row
+            const sortedRows = rows.sort((a, b) => {
+                const cellA = a.cells[columnIndex].innerText.toLowerCase();
+                const cellB = b.cells[columnIndex].innerText.toLowerCase();
+                if (cellA < cellB) return -1;
+                if (cellA > cellB) return 1;
+                return 0;
+            });
+
+            const tbody = table.getElementsByTagName("tbody")[0];
+            tbody.innerHTML = "";
+            sortedRows.forEach(row => tbody.appendChild(row));
+        }
 
         // Submit bid to the backend
         async function submitBid(event) {
@@ -123,11 +141,8 @@
             const bidderName = document.getElementById('bidderName').value;
             const bidAmount = parseFloat(document.getElementById('bidAmount').value);
 
-            // Show confirmation prompt
             const confirmation = confirm(`Confirm your bid of $${bidAmount} on ${bidderName} for Player ID: ${playerId}`);
-            if (!confirmation) {
-                return; // If user cancels, don't proceed
-            }
+            if (!confirmation) return;
 
             const response = await fetch(`${baseUrl}/api/bid`, {
                 method: 'POST',
@@ -145,9 +160,7 @@
 
         document.getElementById('bidForm').addEventListener('submit', submitBid);
 
-        // ============================
         // Timer and Auction End Handling
-        // ============================
         async function fetchAuctionEndTime() {
             const response = await fetch(`${baseUrl}/api/auction-end-time`);
             const data = await response.json();
@@ -156,7 +169,6 @@
             setInterval(updateTimer, 1000); // Update the timer every second
         }
 
-        // Update countdown timer
         function updateTimer() {
             const now = Date.now();
             const timeLeft = Math.max(0, auctionEndTime - now);
@@ -165,21 +177,16 @@
             document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
             if (timeLeft === 0) {
-                clearInterval(timerInterval);
-
-                // Show the "Auction has ended!" message
-                const messageDiv = document.getElementById('auctionEndedMessage');
-                messageDiv.style.display = 'block';
-
-                // Hide the message after 3 seconds
+                document.getElementById('auctionEndedMessage').style.display = 'block';
                 setTimeout(() => {
-                    messageDiv.style.display = 'none';
+                    document.getElementById('auctionEndedMessage').style.display = 'none';
                 }, 3000);
             }
         }
 
         // Initial setup
-        fetchAuctionEndTime();  // Fetch the auction end time from the server
+        fetchAuctionEndTime();
+        startPeriodicUpdates();
     </script>
 </body>
 </html>
