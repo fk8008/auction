@@ -45,6 +45,18 @@
     <div id="timer">Loading timer...</div>
     <div id="auctionEndedMessage">Auction has ended!</div>
 
+    <!-- Filter Form -->
+    <div>
+        <label for="filterName">Player Name:</label>
+        <input type="text" id="filterName" oninput="filterTable()">
+        <label for="filterPosition">Position:</label>
+        <input type="text" id="filterPosition" oninput="filterTable()">
+        <label for="filterClub">Club:</label>
+        <input type="text" id="filterClub" oninput="filterTable()">
+        <label for="filterBidder">Highest Bidder:</label>
+        <input type="text" id="filterBidder" oninput="filterTable()">
+    </div>
+
     <table id="playerTable">
         <thead>
             <tr>
@@ -76,10 +88,9 @@
     </form>
 
     <script>
-        const baseUrl = "https://fpl-auction.onrender.com"; // Set the backend URL
+        const baseUrl = "https://fpl-auction.onrender.com";
         let auctionEndTime = 0;
 
-        // Function to load and update player data
         async function loadPlayers() {
             const response = await fetch(`${baseUrl}/api/players`);
             const players = await response.json();
@@ -108,35 +119,46 @@
             });
         }
 
-        // Function to fetch and update player data periodically
         function startPeriodicUpdates() {
-            loadPlayers(); // Load player data when the page loads
-
-            // Set interval to update player data every 30 seconds
-            setInterval(loadPlayers, 30000); // 30 seconds
+            loadPlayers();
+            setInterval(loadPlayers, 30000);
         }
 
-        // Sort table by column index
         function sortTable(columnIndex) {
             const table = document.getElementById("playerTable");
-            const rows = Array.from(table.rows).slice(1); // Exclude the header row
+            const rows = Array.from(table.rows).slice(1);
             const sortedRows = rows.sort((a, b) => {
                 const cellA = a.cells[columnIndex].innerText.toLowerCase();
                 const cellB = b.cells[columnIndex].innerText.toLowerCase();
-                if (cellA < cellB) return -1;
-                if (cellA > cellB) return 1;
-                return 0;
+                return cellA.localeCompare(cellB);
             });
-
             const tbody = table.getElementsByTagName("tbody")[0];
             tbody.innerHTML = "";
             sortedRows.forEach(row => tbody.appendChild(row));
         }
 
-        // Submit bid to the backend
+        function filterTable() {
+            const nameFilter = document.getElementById("filterName").value.toLowerCase();
+            const positionFilter = document.getElementById("filterPosition").value.toLowerCase();
+            const clubFilter = document.getElementById("filterClub").value.toLowerCase();
+            const bidderFilter = document.getElementById("filterBidder").value.toLowerCase();
+
+            const rows = document.getElementById("playerTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+            Array.from(rows).forEach(row => {
+                const cells = row.getElementsByTagName("td");
+                const matchesFilter = (
+                    (!nameFilter || cells[0].innerText.toLowerCase().includes(nameFilter)) &&
+                    (!positionFilter || cells[1].innerText.toLowerCase().includes(positionFilter)) &&
+                    (!clubFilter || cells[2].innerText.toLowerCase().includes(clubFilter)) &&
+                    (!bidderFilter || cells[4].innerText.toLowerCase().includes(bidderFilter))
+                );
+                row.style.display = matchesFilter ? "" : "none";
+            });
+        }
+
         async function submitBid(event) {
             event.preventDefault();
-
             const playerId = document.getElementById('playerSelect').value;
             const bidderName = document.getElementById('bidderName').value;
             const bidAmount = parseFloat(document.getElementById('bidAmount').value);
@@ -151,29 +173,25 @@
             });
 
             const result = await response.json();
-            if (result.success) {
-                loadPlayers();
-            } else {
-                alert(result.message);
-            }
+            if (result.success) loadPlayers();
+            else alert(result.message);
         }
 
         document.getElementById('bidForm').addEventListener('submit', submitBid);
 
-        // Timer and Auction End Handling
         async function fetchAuctionEndTime() {
             const response = await fetch(`${baseUrl}/api/auction-end-time`);
             const data = await response.json();
             auctionEndTime = data.auctionEndTime;
             updateTimer();
-            setInterval(updateTimer, 1000); // Update the timer every second
+            setInterval(updateTimer, 1000);
         }
 
         function updateTimer() {
             const now = Date.now();
             const timeLeft = Math.max(0, auctionEndTime - now);
-            const minutes = Math.floor(timeLeft / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            const minutes = Math.floor(timeLeft / 60000);
+            const seconds = Math.floor((timeLeft % 60000) / 1000);
             document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
             if (timeLeft === 0) {
@@ -184,7 +202,6 @@
             }
         }
 
-        // Initial setup
         fetchAuctionEndTime();
         startPeriodicUpdates();
     </script>
